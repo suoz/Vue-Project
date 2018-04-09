@@ -37,10 +37,10 @@ exports.register = async (ctx) => {
   })
 }
 
-const findOne = (username) => {
+const findOne = (key, value, password) => {
   return new Promise((resolve, reject) => {
-    userModel.findOne({username}, (err, doc) => {
-      if (!doc) {
+    userModel.findOne({ [key]: value }, { password }, (err, doc) => {
+      if (err) {
         reject(err)
       }
       resolve(doc)
@@ -50,7 +50,7 @@ const findOne = (username) => {
 
 // 用户登录
 exports.login = async ({ username, password }) => {
-  let doc = await findOne(username)
+  let doc = await findOne('username', username, 1)
   if (doc && bcrypt.compareSync(password, doc.password)) {
     const token = createToken(username)
     doc.token = token
@@ -61,7 +61,6 @@ exports.login = async ({ username, password }) => {
         }
         resolve({
           success: true,
-          username: doc.username,
           token: doc.token
         })
       })
@@ -73,4 +72,8 @@ exports.login = async ({ username, password }) => {
     }
   }
   return result
+}
+
+exports.getUser = async (token) => {
+  return findOne('token', token, 0)
 }

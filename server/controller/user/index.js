@@ -1,15 +1,7 @@
 const userLib = require('../../lib/user')
-// 用户登录
-exports.loginUser = async (ctx, next) => {
-  ctx.body = {
-    username: '123',
-    password: '123123'
-  }
-}
 
 //用户注册
 exports.registerUser = async (ctx, next) => {
-  console.log('registerUser', ctx.request.body);
   userLib.register(ctx)
   ctx.body = {
     success: true,
@@ -37,9 +29,8 @@ exports.loginUser = async (ctx, next) => {
 
 // 获取用户
 exports.getUser = async (ctx, next) => {
-  ctx.body = {
-    username: 'suoz',
-    age: 18
-  }
+  const token = ctx.header.authorization.split(' ')[1]
+  let res = await userLib.getUser(token)
+  ctx.body = res
 }
   
