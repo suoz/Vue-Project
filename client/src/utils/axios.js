@@ -18,7 +18,7 @@ axios.interceptors.request.use = instance.interceptors.request.use
 instance.interceptors.request.use(
   (config) => {
     if (store.state.user.token) {
-      config.headers.Authorization = `Bearer ${store.state.user.token}`
+      config.headers.Authorization = store.state.user.token
     }
     return config
   },
@@ -35,7 +35,7 @@ instance.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          store.dispatch('userLogout') // 可能是token过期，清除它
+          store.commit('userLogout') // 可能是token过期，清除它
           router.replace({
             path: '/login',
             query: { redirect: router.currentRoute.fullPath }

@@ -4,6 +4,6 @@ export function loginUser(payload) {
   return axios.post('/users/loginUser', payload)
 }
 
-export function getUser(payload) {
-  return axios.get('/users/getUser', payload)
+export function getUser() {
+  return axios.get('/users/getUser')
 }

@@ -16,7 +16,6 @@
         </el-form-item>
       </div>
       <el-form-item>
-        <!-- <el-button type="primary" @click="on_submit('loginForm')">登录</el-button> -->
         <img src="static/img/login/login_btn.png" @click="on_submit('loginForm')">
       </el-form-item>
     </el-form>
@@ -25,8 +24,10 @@
 
 <script>
 import { loginUser } from '../services/user'
+import { mapState, mapActions } from 'vuex';
 
 export default {
+  name: 'login',
   data(){
     return {
       loginForm: {        //表单v-model的值
@@ -51,16 +52,16 @@ export default {
     on_submit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // 发送一个请求给后端
           loginUser({
             username: this.loginForm.username,
             password: this.loginForm.password
           }).then(res => {
             const { data } = res.data
-            const token = data.token
-            this.$cookie.set('token', `Bearer ${token}`, { expires: '24h' })
-            this.$store.dispatch('updateUser', token)
-            // this.$router.push({ path: 'page' })
+            const token = `Bearer ${data.token}`
+            this.$cookie.set('token', token, { expires: '24h' })
+            this.$store.commit('updateUser', token)
+            this.$store.dispatch('getUser')
+            this.$router.push({ path: '/' })
           }).catch(err => {
             console.warn(err)
           })

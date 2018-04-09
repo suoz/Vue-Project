@@ -1,19 +1,20 @@
 <template>
-  <div class="page-info-wrapper">
-      hello, info
+  <div class="com-footer-wrapper">
+    
   </div>
 </template>
 
 <script>
 export default {
-  name: 'info',
-  created() {
-    console.log('info')
-  }
+  name: 'footer',
+    data() {
+    return {}
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 
 </style>
+
 
