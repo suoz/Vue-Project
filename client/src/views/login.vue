@@ -46,7 +46,7 @@ export default {
     }
   },
   created () {
-    // console.log('this', this)
+    // console.log('socket', socket)
   },
   methods: {
     on_submit(formName) {
@@ -60,8 +60,9 @@ export default {
             const token = `Bearer ${data.token}`
             this.$cookie.set('token', token, { expires: '24h' })
             this.$store.commit('updateUser', token)
+            socket.emit('login', data.username)
             this.$store.dispatch('getUser')
-            this.$router.push({ path: '/' })
+            this.$router.push({ name: 'index' })
           }).catch(err => {
             console.warn(err)
           })

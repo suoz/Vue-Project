@@ -4,6 +4,9 @@ import Login from 'views/login'
 import Index from 'views/index'
 import Info from 'views/info'
 import Information from 'views/information'
+import InfoDetail from 'views/infoDetail'
+import Message from 'views/message'
+import Chat from 'views/chat'
 import store from '../store/index'
 
 Vue.use(Router);
@@ -25,6 +28,24 @@ const router = new Router({
         path: 'information',
         name: 'information',
         component: Information
+      }, {
+        path: 'infoDetail',
+        name: 'infoDetail',
+        component: InfoDetail
+      }, {
+        path: 'message',
+        name: 'message',
+        component: Message,
+        meta: {
+          requireAuth: true
+        },
+      }, {
+        path: 'chat',
+        name: 'chat',
+        component: Chat,
+        meta: {
+          requireAuth: true
+        },
       }]
     },
     {
@@ -39,7 +60,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // next 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
   if (to.meta.requireAuth) {
-    if (store.state.user.token) {
+    if (store.state.user.userId) {
       next()
     } else {
       next({ path: '/login', query: { redirect: to.fullPath } }) // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由

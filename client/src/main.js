@@ -5,7 +5,9 @@ import VeeValidate from 'vee-validate'
 import VueCookie from 'vue-cookie'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// import { get } from './utils/axios'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+import 'static/css/index.scss'
 import App from './App';
 import store from './store'
 import router from './router'
@@ -14,6 +16,7 @@ import router from './router'
 Vue.use(VueCookie)
 Vue.use(VeeValidate)
 Vue.use(ElementUI)
+Vue.use(VueAwesomeSwiper)
 
 
 // 在应用启动时，可以通过设置 Vue.config.productionTip = false 来关闭生产模式下给出的提示

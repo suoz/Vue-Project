@@ -1,0 +1,8 @@
+.el-dropdown-menu {
+  top: 1;
+  .el-dropdown-menu__item {
+    &:hover {
+      color: red;
+    }
+  }        
+}

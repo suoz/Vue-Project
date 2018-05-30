@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { getUser } from '../../../services/user'
 
 const module = {
@@ -11,6 +12,9 @@ const module = {
     phone: '',
     email: '',
     address: '',
+    userId: '',
+    socketId: '',
+    status: ''
   },
   getters: {},
   mutations: {
@@ -19,6 +23,7 @@ const module = {
     },
     getUser: (state, { data, rootState }) => {
       rootState.user = data
+      Vue.cookie.set('userId', data.userId)
     },
     userLogout: (state, { rootState }) => {
       rootState.user = {}
